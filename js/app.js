@@ -344,6 +344,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
 
   // ===== 初始化功能 =====
+  initDisclaimer();
   initNavbar();
   initCountdown();
 
@@ -358,6 +359,25 @@ document.addEventListener('DOMContentLoaded', () => {
   initNotes();
   initBackupTools();
   initBackToTop();
+
+  // ===== 免責聲明遮罩處理 =====
+  function initDisclaimer() {
+    const overlay = document.getElementById('disclaimerOverlay');
+    const acceptBtn = document.getElementById('disclaimerAcceptBtn');
+    const isAccepted = localStorage.getItem('japanTripDisclaimerAccepted');
+
+    if (!isAccepted) {
+      overlay.classList.add('show');
+      document.body.classList.add('disclaimer-active');
+    }
+
+    acceptBtn.addEventListener('click', () => {
+      localStorage.setItem('japanTripDisclaimerAccepted', 'true');
+      overlay.classList.remove('show');
+      document.body.classList.remove('disclaimer-active');
+      window.scrollTo(0, 0);
+    });
+  }
 
   // ===== 導覽列功能 =====
   function initNavbar() {
