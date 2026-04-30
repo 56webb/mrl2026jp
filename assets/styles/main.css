@@ -1,0 +1,2211 @@
+/* ===== 變數與重置 ===== */
+:root {
+  /* 顏色系統 - 櫻花富士日系風 */
+  --c-primary: #1e3a8a; /* 富士深藍 */
+  --c-primary-light: #f472b6; /* 櫻花粉 */
+  --c-secondary: #0ea5e9; /* 晴空藍 */
+  --c-accent: #f59e0b; /* 銀杏黃 */
+  
+  --c-bg: #fffbfb; /* 帶一點粉的暖白背景 */
+  --c-bg-alt: #fdf2f8; /* 極淺櫻花粉背景 */
+  --c-surface: rgba(255, 255, 255, 0.85); /* 亮色玻璃擬態表面 */
+  --c-surface-hover: rgba(255, 255, 255, 0.95);
+  
+  --c-text: #334155; /* 深灰藍文字 */
+  --c-text-muted: #64748b;
+  --c-border: rgba(0, 0, 0, 0.08);
+  
+  /* 分類顏色 */
+  --c-tokyo: #ec4899;    /* 東京粉 */
+  --c-nagano: #10b981;   /* 長野綠 */
+  --c-tateyama: #06b6d4; /* 立山雪青 */
+  --c-shirakawa: #d97706;/* 合掌村褐 */
+  --c-fuji: #3b82f6;     /* 富士藍 */
+  --c-transit: #8b5cf6;  /* 交通紫 */
+
+  /* 字體 */
+  --font-serif: 'Noto Serif TC', serif;
+  --font-sans: 'Outfit', sans-serif;
+
+  /* 其他 */
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+  --glass-blur: blur(12px);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--c-bg);
+  color: var(--c-text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* ===== 通用樣式 ===== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 80px 0;
+  position: relative;
+}
+
+.section-dark {
+  background-color: var(--c-bg-alt);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, #1e293b, #475569);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-subtitle {
+  color: var(--c-text-muted);
+  font-size: 1.1rem;
+}
+
+/* 玻璃擬態混合 */
+.glass-panel {
+  background: var(--c-surface);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-shadow);
+}
+
+/* ===== 導覽列 ===== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5%;
+  z-index: 1000;
+  transition: var(--transition);
+}
+
+.navbar.scrolled {
+  background: rgba(253, 251, 247, 0.9);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--c-border);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+}
+
+.nav-brand {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-links {
+  display: flex;
+  gap: clamp(12px, 1.8vw, 24px);
+}
+
+.nav-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--c-text-muted);
+  transition: var(--transition);
+  position: relative;
+  white-space: nowrap;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--c-primary-light);
+  transition: var(--transition);
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--c-text);
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+  width: 100%;
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  width: 30px;
+  height: 24px;
+  z-index: 1001;
+}
+
+.nav-toggle span {
+  width: 100%;
+  height: 2px;
+  background-color: var(--c-text);
+  transition: var(--transition);
+}
+
+/* ===== 英雄區塊 ===== */
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 0 24px;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(to bottom, rgba(255,251,251,0.3) 0%, rgba(255,251,251,1) 100%),
+    url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2020&auto=format&fit=crop') center/cover no-repeat;
+  z-index: -1;
+  transform: scale(1.05);
+  animation: heroPulse 20s infinite alternate;
+}
+
+@keyframes heroPulse {
+  0% { transform: scale(1) rotate(0deg); }
+  100% { transform: scale(1.1) rotate(0.5deg); }
+}
+
+.hero-content {
+  max-width: 800px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  animation: fadeUp 1s ease-out;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-badge {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  backdrop-filter: blur(4px);
+}
+
+.hero-title {
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.15;
+  color: var(--c-text);
+  font-family: var(--font-serif);
+  /* 增加優雅的白色光暈，確保在背景上清晰可見 */
+  text-shadow: 0 4px 24px rgba(255, 255, 255, 0.9), 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+.title-line {
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.title-sub {
+  font-size: 0.75em;
+  font-weight: 600;
+  color: var(--c-primary); /* 使用地中海蔚藍增添南法風情 */
+  letter-spacing: 0.05em;
+}
+
+.hero-desc {
+  font-size: 1.2rem;
+  color: var(--c-text-muted);
+  letter-spacing: 2px;
+}
+
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 24px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  padding: 20px 40px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--c-border);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-number {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--c-accent);
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--c-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--c-border);
+}
+
+.hero-locations {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.loc-tag {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.loc-tag:hover {
+  background: rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.8rem;
+  color: var(--c-text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: bounce 2s infinite;
+}
+
+.scroll-arrow {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--c-text-muted), transparent);
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+/* ===== 旅行儀表板 ===== */
+.dashboard-section {
+  padding-top: 72px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.dashboard-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+}
+
+.dashboard-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: #eef6ff;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.dashboard-label {
+  color: var(--c-text-muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.dashboard-value {
+  color: var(--c-text);
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.dashboard-detail {
+  color: var(--c-text-muted);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  margin-top: 6px;
+}
+
+.alert-strip {
+  margin-top: 18px;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-left: 5px solid var(--c-accent);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: #7c2d12;
+}
+
+.alert-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #ffedd5;
+  color: #c2410c;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* ===== 天氣預測 ===== */
+.weather-panel {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.weather-panel-summary {
+  cursor: pointer;
+  list-style: none;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.weather-panel-summary::-webkit-details-marker {
+  display: none;
+}
+
+.weather-panel-toggle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  color: var(--c-text-muted);
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+  line-height: 1;
+  transition: var(--transition);
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.weather-panel[open] .weather-panel-toggle {
+  transform: rotate(180deg);
+}
+
+.weather-panel-summary .section-title {
+  margin-bottom: 12px;
+}
+
+.weather-toolbar {
+  margin: -12px auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.weather-source {
+  color: var(--c-text-muted);
+  font-size: 0.9rem;
+}
+
+.weather-refresh-btn {
+  background: var(--c-primary);
+  color: #ffffff;
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  font-weight: 700;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.weather-refresh-btn:hover:not(:disabled) {
+  background: var(--c-secondary);
+  transform: translateY(-2px);
+}
+
+.weather-refresh-btn:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.weather-grid {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+}
+
+.weather-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+}
+
+.weather-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.weather-date {
+  color: var(--c-text-muted);
+  font-size: 0.84rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.weather-card h3 {
+  color: var(--c-primary);
+  font-size: 1.15rem;
+}
+
+.weather-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: #eff6ff;
+  font-size: 1.55rem;
+  flex-shrink: 0;
+}
+
+.weather-note {
+  color: var(--c-text-muted);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.weather-main {
+  color: var(--c-text);
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin-top: auto;
+}
+
+.weather-metrics {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  border-top: 1px solid var(--c-border);
+  padding-top: 12px;
+}
+
+.weather-metrics div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.weather-metrics span {
+  color: var(--c-text-muted);
+  font-size: 0.82rem;
+}
+
+.weather-metrics strong {
+  color: var(--c-text);
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.weather-placeholder,
+.weather-error {
+  color: var(--c-text-muted);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px dashed var(--c-border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  line-height: 1.5;
+}
+
+.weather-error {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+.weather-loading .weather-icon {
+  animation: weatherPulse 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes weatherPulse {
+  from { opacity: 0.45; }
+  to { opacity: 1; }
+}
+
+.calendar-weather {
+  margin-top: 10px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  color: var(--c-text);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.calendar-weather.pending {
+  color: var(--c-text-muted);
+  font-weight: 600;
+}
+
+/* ===== 行前檢查清單 ===== */
+.checklist-board {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.checklist-group {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+}
+
+.checklist-group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.checklist-group-header h3 {
+  font-size: 1rem;
+  color: var(--c-primary);
+}
+
+.checklist-group-header span {
+  font-size: 0.8rem;
+  color: var(--c-text-muted);
+  background: rgba(14, 165, 233, 0.08);
+  border-radius: 999px;
+  padding: 3px 9px;
+  white-space: nowrap;
+}
+
+.checklist-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--c-text);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  cursor: pointer;
+}
+
+.checklist-item input {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--c-text-muted);
+  border-radius: 5px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  position: relative;
+  transition: var(--transition);
+}
+
+.checklist-item input:checked {
+  background: var(--c-nagano);
+  border-color: var(--c-nagano);
+}
+
+.checklist-item input:checked::after {
+  content: '✓';
+  position: absolute;
+  color: white;
+  font-size: 13px;
+  font-weight: 800;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.checklist-item input:checked + span {
+  color: var(--c-text-muted);
+  text-decoration: line-through;
+}
+
+/* ===== 時間軸 (過濾器) ===== */
+.timeline-filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.filter-btn {
+  padding: 8px 20px;
+  border-radius: 30px;
+  border: 1px solid var(--c-border);
+  color: var(--c-text-muted);
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.filter-btn:hover {
+  border-color: var(--c-text);
+  color: var(--c-text);
+}
+
+.filter-btn.active {
+  background: var(--c-text);
+  color: var(--c-bg);
+  font-weight: 600;
+}
+
+/* ===== 行事曆 ===== */
+.calendar-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.calendar-month {
+  margin-bottom: 50px;
+}
+
+.calendar-header {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--c-accent);
+  letter-spacing: 2px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 16px;
+}
+
+.calendar-day-header {
+  text-align: center;
+  font-weight: 600;
+  color: var(--c-text-muted);
+  padding: 10px 0;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+}
+
+.calendar-cell {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  min-height: 120px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+}
+
+.calendar-cell.empty {
+  background: transparent;
+  border-color: transparent;
+}
+
+.calendar-cell.has-data {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.calendar-cell.has-data:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--glass-shadow);
+  border-color: rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.calendar-date {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--c-text-muted);
+  display: flex;
+  justify-content: space-between;
+}
+
+.calendar-cell.has-data .calendar-date {
+  color: var(--c-text);
+}
+
+.calendar-time {
+  font-size: 0.8rem;
+  color: var(--c-accent);
+}
+
+.calendar-item {
+  margin-top: auto;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.3;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 待辦事項紅點徽章 */
+.calendar-todo-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background-color: #ef4444;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: bold;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* 類型顏色 - 日曆版 */
+.cal-type-transit { background: rgba(139, 92, 246, 0.15); border-left: 4px solid var(--c-transit); }
+.cal-type-tokyo { background: rgba(236, 72, 153, 0.15); border-left: 4px solid var(--c-tokyo); }
+.cal-type-nagano { background: rgba(16, 185, 129, 0.15); border-left: 4px solid var(--c-nagano); }
+.cal-type-tateyama { background: rgba(6, 182, 212, 0.15); border-left: 4px solid var(--c-tateyama); }
+.cal-type-shirakawa { background: rgba(217, 119, 6, 0.15); border-left: 4px solid var(--c-shirakawa); }
+.cal-type-fuji { background: rgba(59, 130, 246, 0.15); border-left: 4px solid var(--c-fuji); }
+
+/* 過濾器效果 */
+.calendar-cell.dimmed {
+  opacity: 0.2;
+  filter: grayscale(100%);
+  pointer-events: none;
+}
+
+/* ===== 目的地卡片 ===== */
+.destinations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.dest-card {
+  height: 400px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.dest-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dest-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15,23,42,0.9) 0%, rgba(15,23,42,0.2) 50%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 30px;
+  transition: var(--transition);
+}
+
+.dest-card:hover .dest-img {
+  transform: scale(1.1);
+}
+
+.dest-card:hover .dest-overlay {
+  background: linear-gradient(to top, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.6) 50%, rgba(15,23,42,0.2) 100%);
+}
+
+.dest-title {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+  transform: translateY(20px);
+  transition: transform 0.4s ease;
+}
+
+.dest-desc {
+  color: var(--c-text-muted);
+  font-size: 0.95rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+  transition-delay: 0.1s;
+}
+
+.dest-card:hover .dest-title,
+.dest-card:hover .dest-desc {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ===== 旅遊小撇步 ===== */
+/* ===== 展開式清單 (Accordion) ===== */
+.accordion-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.accordion-item {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.accordion-item:hover {
+  border-color: var(--c-primary-light);
+  box-shadow: var(--glass-shadow);
+}
+
+.accordion-header {
+  padding: 20px 24px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--c-text);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}
+
+.accordion-header::-webkit-details-marker {
+  display: none;
+}
+
+.accordion-title-text {
+  font-family: var(--font-serif);
+  color: var(--c-primary);
+  font-size: 1.3rem;
+}
+
+.accordion-icon {
+  font-size: 0.9rem;
+  color: var(--c-text-muted);
+  transition: transform 0.3s ease;
+}
+
+details[open] .accordion-icon {
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  padding: 0 24px 24px 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  margin-top: 10px;
+  padding-top: 20px;
+}
+
+.accordion-card {
+  background: rgba(0,0,0,0.02);
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: flex;
+  gap: 16px;
+  transition: var(--transition);
+}
+
+.accordion-card:hover {
+  background: rgba(0,0,0,0.04);
+  transform: translateY(-2px);
+}
+
+.acc-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.acc-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.acc-title {
+  font-size: 1.05rem;
+  color: var(--c-text);
+  font-weight: 600;
+}
+
+.acc-desc {
+  font-size: 0.9rem;
+  color: var(--c-text-muted);
+  line-height: 1.5;
+}
+
+/* ===== 訂位總覽 ===== */
+.booking-group {
+  margin-bottom: 36px;
+  background: transparent;
+}
+
+.booking-group-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--c-border);
+  cursor: pointer;
+  list-style: none;
+  transition: var(--transition);
+}
+
+.booking-group-header::-webkit-details-marker {
+  display: none;
+}
+
+.booking-group-header:hover {
+  border-color: var(--c-primary-light);
+}
+
+.booking-cat-icon {
+  font-size: 1.6rem;
+}
+
+.booking-cat-label {
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-family: var(--font-serif);
+  color: var(--c-text);
+}
+
+.booking-cat-count {
+  margin-left: auto;
+  font-size: 0.85rem;
+  color: var(--c-text-muted);
+  background: var(--c-surface-hover);
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.booking-toggle-icon {
+  color: var(--c-text-muted);
+  font-size: 1.2rem;
+  line-height: 1;
+  transition: transform 0.25s ease;
+}
+
+.booking-group[open] .booking-toggle-icon {
+  transform: rotate(180deg);
+}
+
+.booking-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 2px;
+}
+
+.booking-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  gap: 20px;
+  transition: var(--transition);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+.booking-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  border-color: var(--c-primary-light);
+}
+
+.booking-left {
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 4px;
+}
+
+.booking-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+}
+
+.booking-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.booking-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.booking-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--c-text);
+  margin-bottom: 4px;
+}
+
+.booking-subtitle {
+  font-size: 0.95rem;
+  color: var(--c-text-muted);
+}
+
+.booking-status {
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.booking-status.confirmed {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.booking-status.pending {
+  background: #fef9c3;
+  color: #a16207;
+}
+
+.booking-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px 24px;
+  margin-bottom: 14px;
+}
+
+.booking-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.booking-detail-label {
+  font-size: 0.78rem;
+  color: var(--c-text-muted);
+  letter-spacing: 0.02em;
+}
+
+.booking-detail-val {
+  font-size: 0.95rem;
+  color: var(--c-text);
+  font-weight: 500;
+}
+
+.booking-code {
+  font-family: 'Courier New', monospace;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--c-primary);
+  letter-spacing: 0.12em;
+  background: rgba(2, 132, 199, 0.08);
+  padding: 2px 8px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.booking-note {
+  font-size: 0.88rem;
+  color: var(--c-text-muted);
+  background: rgba(0,0,0,0.03);
+  border-left: 3px solid var(--c-primary-light);
+  padding: 8px 12px;
+  border-radius: 0 6px 6px 0;
+  line-height: 1.5;
+}
+
+.booking-empty {
+  text-align: center;
+  padding: 60px 24px;
+  background: var(--c-surface);
+  border-radius: var(--radius-lg);
+  border: 2px dashed var(--c-border);
+}
+
+/* ===== 備忘錄 ===== */
+
+.notes-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+}
+
+.note-editor {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: fit-content;
+  position: sticky;
+  top: 100px;
+}
+
+.note-editor-header h3 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.note-category-select,
+.note-input-title,
+.note-input,
+.note-textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-md);
+  color: var(--c-text);
+  padding: 12px 16px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+.note-category-select:focus,
+.note-input-title:focus,
+.note-input:focus,
+.note-textarea:focus {
+  outline: none;
+  border-color: var(--c-primary-light);
+  background: #ffffff;
+}
+
+.note-category-select option {
+  background: var(--c-bg);
+  color: var(--c-text);
+}
+
+.note-input,
+.note-textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-weight: 700;
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--c-primary), var(--c-secondary));
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(30, 58, 138, 0.18);
+}
+
+.note-save-btn {
+  background: linear-gradient(135deg, var(--c-primary-light), var(--c-primary));
+  color: white;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.note-save-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+}
+
+.backup-panel {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+  margin: -20px 0 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+}
+
+.backup-panel h3 {
+  color: var(--c-primary);
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+}
+
+.backup-panel p {
+  color: var(--c-text-muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.backup-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.btn-secondary {
+  background: #ffffff;
+  border: 1px solid var(--c-border);
+  color: var(--c-primary);
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  border-color: var(--c-primary-light);
+  background: var(--c-bg-alt);
+  transform: translateY(-1px);
+}
+
+.notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.notes-empty {
+  background: var(--c-surface);
+  border: 1px dashed var(--c-border);
+  border-radius: var(--radius-lg);
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--c-text-muted);
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.empty-sub {
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+
+.note-item {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-left: 4px solid var(--c-primary-light);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: var(--transition);
+}
+
+.note-item:hover {
+  transform: translateX(5px);
+  border-color: rgba(0,0,0,0.2);
+}
+
+.note-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.note-category-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.note-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--c-accent);
+  margin-bottom: 8px;
+}
+
+.note-content {
+  color: var(--c-text-muted);
+  font-size: 0.95rem;
+  white-space: pre-wrap;
+  margin-bottom: 16px;
+}
+
+.note-image-display {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(0,0,0,0.1);
+  object-fit: cover;
+  max-height: 250px;
+}
+
+.note-date {
+  font-size: 0.8rem;
+  color: var(--c-text-muted);
+  opacity: 0.7;
+}
+
+.note-delete {
+  background: transparent;
+  border: 1px solid #ef4444;
+  color: #ef4444;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: var(--transition);
+}
+
+.note-delete:hover {
+  background: #ef4444;
+  color: white;
+}
+
+/* 檔案上傳按鈕樣式 */
+.upload-btn {
+  display: inline-block;
+  padding: 8px 16px;
+  background: rgba(0,0,0,0.02);
+  border: 1px dashed var(--c-border);
+  border-radius: 8px;
+  color: var(--c-text-muted);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.upload-btn:hover {
+  background: rgba(0,0,0,0.05);
+  color: var(--c-text);
+  border-color: var(--c-accent);
+}
+
+/* ===== 待辦事項樣式 ===== */
+.todo-list-container {
+  margin-bottom: 20px;
+}
+
+.todo-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+  transition: var(--transition);
+  border: 1px solid transparent;
+}
+
+.todo-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0,0,0,0.1);
+}
+
+.todo-item.completed {
+  opacity: 0.6;
+}
+
+.todo-item.completed .todo-text {
+  text-decoration: line-through;
+  color: var(--c-text-muted);
+}
+
+.todo-checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--c-text-muted);
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  transition: var(--transition);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.todo-checkbox:checked {
+  background: var(--c-primary-light);
+  border-color: var(--c-primary-light);
+}
+
+.todo-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.todo-text {
+  flex-grow: 1;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  word-break: break-all;
+}
+
+.todo-delete-btn {
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: var(--transition);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.todo-item:hover .todo-delete-btn {
+  opacity: 1;
+}
+
+.todo-input-wrapper {
+  display: flex;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.todo-input {
+  flex-grow: 1;
+  background: #ffffff;
+  border: 1px solid var(--c-border);
+  border-radius: 4px;
+  padding: 8px 12px;
+  color: var(--c-text);
+  font-size: 0.9rem;
+}
+
+.todo-input:focus {
+  outline: none;
+  border-color: var(--c-primary-light);
+}
+
+.todo-add-btn {
+  background: var(--c-primary-light);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.todo-add-btn:hover {
+  background: #2563eb;
+}
+
+/* 總表專用 */
+.todo-master-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.todo-date-group {
+  margin-bottom: 24px;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+}
+
+.todo-date-header {
+  font-size: 1.2rem;
+  color: var(--c-accent);
+  margin-bottom: 15px;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  padding-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.todo-date-location {
+  font-size: 0.85rem;
+  background: rgba(0,0,0,0.05);
+  padding: 2px 8px;
+  border-radius: 12px;
+  color: var(--c-text);
+}
+
+.note-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.note-item-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.note-item-meta {
+  font-size: 0.8rem;
+  color: var(--c-text-muted);
+}
+
+.note-item-content {
+  color: var(--c-text-muted);
+  font-size: 0.95rem;
+  white-space: pre-wrap;
+}
+
+.note-item-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.note-action-btn {
+  color: var(--c-text-muted);
+  font-size: 0.9rem;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  background: rgba(0,0,0,0.03);
+}
+
+.note-action-btn:hover {
+  background: rgba(0,0,0,0.08);
+  color: var(--c-text);
+}
+
+.note-action-btn.delete:hover {
+  color: var(--c-secondary);
+  background: rgba(225, 29, 72, 0.1);
+}
+
+/* ===== 浮層 (Modal) ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--transition);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal {
+  background: var(--c-bg-alt);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  transform: translateY(20px) scale(0.95);
+  transition: var(--transition);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.modal-overlay.active .modal {
+  transform: translateY(0) scale(1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--c-text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  z-index: 10;
+  transition: var(--transition);
+}
+
+.modal-close:hover {
+  background: var(--c-secondary);
+}
+
+.modal-content {
+  padding: 40px;
+}
+
+.modal-header {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.modal-date {
+  color: var(--c-accent);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.modal-title {
+  font-size: 1.8rem;
+}
+
+.modal-body p {
+  margin-bottom: 16px;
+  color: var(--c-text-muted);
+}
+
+.modal-tool-panel {
+  margin-top: 24px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-md);
+}
+
+.quick-note-input {
+  width: 100%;
+  min-height: 90px;
+  background: #ffffff;
+  border: 1px solid var(--c-border);
+  color: var(--c-text);
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 10px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.quick-note-input:focus {
+  outline: none;
+  border-color: var(--c-primary-light);
+}
+
+/* ===== 頁尾 ===== */
+.footer {
+  background: var(--c-bg-alt);
+  padding: 60px 0;
+  text-align: center;
+  border-top: 1px solid var(--c-border);
+}
+
+.footer-text {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.footer-sub {
+  color: var(--c-text-muted);
+  font-size: 0.9rem;
+}
+
+/* ===== 回到頂部 ===== */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--c-surface);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--c-border);
+  color: var(--c-text);
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px);
+  transition: var(--transition);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: var(--c-primary-light);
+  transform: translateY(-5px);
+}
+
+.mobile-quick-nav {
+  display: none;
+}
+
+/* ===== 響應式設計 ===== */
+@media (max-width: 992px) {
+  .dashboard-grid,
+  .checklist-board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .notes-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .note-editor {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 86px;
+  }
+
+  .hero-title {
+    font-size: 3.5rem;
+  }
+
+  .section {
+    padding: 56px 0;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .dashboard-grid,
+  .checklist-board {
+    grid-template-columns: 1fr;
+  }
+
+  .weather-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .weather-panel-summary {
+    text-align: left;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .weather-refresh-btn {
+    width: 100%;
+  }
+
+  .backup-panel {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .backup-actions {
+    justify-content: stretch;
+  }
+
+  .backup-actions .btn,
+  .backup-actions label {
+    flex: 1;
+    min-width: 130px;
+  }
+
+  .alert-strip {
+    align-items: flex-start;
+  }
+  
+  .hero-stats {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .stat-divider {
+    display: none;
+  }
+  
+  .stat-item {
+    width: 40%;
+    margin-bottom: 16px;
+  }
+
+  .calendar-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .calendar-day-header {
+    display: none;
+  }
+  
+  .calendar-cell.empty {
+    display: none;
+  }
+
+  .calendar-cell {
+    min-height: 118px;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 70px;
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background: var(--c-bg-alt);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    transition: var(--transition);
+  }
+
+  .nav-links.active {
+    left: 0;
+  }
+
+  .nav-link {
+    font-size: 1.5rem;
+  }
+
+  .booking-card {
+    flex-direction: column;
+  }
+
+  .booking-top-row,
+  .todo-date-header,
+  .note-item-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .modal-content {
+    padding: 32px 22px;
+  }
+
+  .back-to-top {
+    bottom: 92px;
+    right: 18px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .mobile-quick-nav {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    z-index: 1200;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid var(--c-border);
+    border-radius: 18px;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.16);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    padding: 8px;
+  }
+
+  .mobile-quick-nav a {
+    min-width: 0;
+    border-radius: 12px;
+    color: var(--c-text-muted);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 6px 2px;
+    transition: var(--transition);
+  }
+
+  .mobile-quick-nav a:hover,
+  .mobile-quick-nav a:focus {
+    background: var(--c-bg-alt);
+    color: var(--c-primary);
+  }
+
+  .mobile-quick-nav span {
+    font-size: 1.15rem;
+    line-height: 1;
+  }
+
+  .mobile-quick-nav small {
+    font-size: 0.72rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+}
+
+/* ===== Undo Toast 通知 ===== */
+#undoToastContainer {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  pointer-events: none;
+}
+
+.undo-toast {
+  pointer-events: all;
+  background: #1e293b;
+  color: #f1f5f9;
+  border-radius: 14px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 300px;
+  max-width: 480px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  animation: toastSlideIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  position: relative;
+  overflow: hidden;
+}
+
+.undo-toast.toast-hiding {
+  animation: toastSlideOut 0.3s ease forwards;
+}
+
+.undo-toast-msg {
+  flex: 1;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.undo-toast-label {
+  font-size: 0.78rem;
+  opacity: 0.6;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.undo-toast-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.undo-btn {
+  background: var(--c-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.undo-btn:hover {
+  background: var(--c-primary-light);
+}
+
+.undo-countdown {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.45);
+  min-width: 28px;
+  text-align: right;
+}
+
+/* 底部進度條（倒數 60 秒） */
+.undo-toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: var(--c-primary);
+  border-radius: 0 0 0 14px;
+  animation: toastProgress 60s linear forwards;
+}
+
+@keyframes toastSlideIn {
+  from { opacity: 0; transform: translateY(40px) scale(0.9); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes toastSlideOut {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(20px) scale(0.95); }
+}
+
+@keyframes toastProgress {
+  from { width: 100%; }
+  to   { width: 0%; }
+}

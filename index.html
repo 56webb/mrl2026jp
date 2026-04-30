@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="2026 日本旅遊手冊 — 黑部立山、合掌村、富士山、東京">
+  <title>🇯🇵 日本旅遊手冊 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles/main.css">
+</head>
+
+<body>
+
+  <!-- ===== 頂部導覽列 ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">
+      <span class="nav-flag">🇯🇵</span>
+      <span class="nav-title">日本之旅 2026</span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#overview" class="nav-link active" data-section="overview">行程總覽</a></li>
+      <li><a href="#dashboard" class="nav-link" data-section="dashboard">儀表板</a></li>
+      <li><a href="#weather" class="nav-link" data-section="weather">天氣</a></li>
+      <li><a href="#timeline" class="nav-link" data-section="timeline">每日行程</a></li>
+      <li><a href="#checklist" class="nav-link" data-section="checklist">行前檢查</a></li>
+      <li><a href="#todo-master" class="nav-link" data-section="todo-master">待辦</a></li>
+      <li><a href="#bookings" class="nav-link" data-section="bookings">訂位</a></li>
+      <li><a href="#recommendations" class="nav-link" data-section="recommendations">美食景點</a></li>
+      <li><a href="#tips" class="nav-link" data-section="tips">旅遊小撇步</a></li>
+      <li><a href="#notes" class="nav-link" data-section="notes">備忘錄</a></li>
+      <li><a href="#data-registry" class="nav-link" data-section="data-registry">資料</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="切換選單">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ===== 英雄區塊 ===== -->
+  <header class="hero" id="overview">
+    <div class="hero-bg">
+      <div class="hero-particles" id="particles"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">✈ 2026 春季日本行</div>
+      <h1 class="hero-title">
+        <span class="title-line">黑部立山</span>
+      </h1>
+      <p class="hero-desc">5月5日 — 5月11日 · 高雄出發 7 日專屬客製團</p>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number" id="countdownDays">--</span>
+          <span class="stat-label">距出發天數</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">7</span>
+          <span class="stat-label">旅遊天數</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">多</span>
+          <span class="stat-label">主要城市</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">1</span>
+          <span class="stat-label">個國家</span>
+        </div>
+      </div>
+      <div class="hero-locations">
+        <span class="loc-tag">🗼 東京</span>
+        <span class="loc-tag">🗻 富士山</span>
+        <span class="loc-tag">❄️ 黑部立山</span>
+        <span class="loc-tag">🏘️ 合掌村</span>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>向下滾動</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </header>
+
+  <!-- ===== 主要內容 ===== -->
+  <main class="main-content">
+
+    <!-- ===== 旅行儀表板 ===== -->
+    <section class="section dashboard-section" id="dashboard">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">旅行儀表板</h2>
+          <p class="section-subtitle">出發前最常查的資訊放在第一眼</p>
+        </div>
+        <div class="dashboard-grid" id="dashboardGrid">
+          <!-- 由 JS 動態產生 -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== 天氣預測 ===== -->
+    <section class="section section-dark" id="weather">
+      <div class="container">
+        <details class="weather-panel">
+          <summary class="weather-panel-summary">
+            <div>
+              <h2 class="section-title">天氣預測</h2>
+              <p class="section-subtitle">依每日主要停留地抓取 Open-Meteo 免費預報</p>
+            </div>
+            <span class="weather-panel-toggle">⌄</span>
+          </summary>
+          <div class="weather-panel-body">
+            <div class="weather-toolbar">
+              <div class="weather-source">資料來源：Open-Meteo Weather Forecast API，無需 API key</div>
+              <button type="button" class="weather-refresh-btn" id="weatherRefreshBtn">更新天氣</button>
+            </div>
+            <div class="weather-grid" id="weatherGrid">
+              <!-- 由 JS 動態產生 -->
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ===== 行事曆 (每日行程) ===== -->
+    <section class="section" id="timeline">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">行程行事曆</h2>
+          <p class="section-subtitle">點選日期卡片可檢視詳細計畫與新增備忘</p>
+        </div>
+
+
+
+        <div class="calendar-wrapper" id="calendarContainer">
+          <!-- 由 JS 動態產生行事曆 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 行前檢查清單 ===== -->
+    <section class="section" id="checklist">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">行前檢查清單</h2>
+          <p class="section-subtitle">護照、行李、山區裝備與機場事項一次核對</p>
+        </div>
+        <div class="checklist-board" id="checklistBoard">
+          <!-- 由 JS 動態產生 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 待辦事項總表 ===== -->
+    <section class="section section-dark" id="todo-master">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">待辦事項總表</h2>
+          <p class="section-subtitle">統整整趟旅程的所有任務</p>
+        </div>
+        <div class="todo-master-container" id="todoMasterContainer">
+          <!-- 由 JS 動態產生 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 訂位總覽 ===== -->
+    <section class="section" id="bookings">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">📌 訂位總覽</h2>
+          <p class="section-subtitle">已確認的交通、住宿與景點訂票</p>
+        </div>
+        <div id="bookingsContainer">
+          <!-- 由 JS 動態產生 -->
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section" id="recommendations">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">必吃美食與景點推薦</h2>
+          <p class="section-subtitle">來自外部資料的精選推薦清單</p>
+        </div>
+        <div class="tips-grid" id="recommendationsGrid">
+          <!-- 由 JS 動態產生 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 旅遊小撇步 ===== -->
+    <section class="section section-dark" id="tips">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">旅遊小撇步</h2>
+          <p class="section-subtitle">實用資訊與注意事項</p>
+        </div>
+        <div class="tips-grid" id="tipsGrid">
+          <!-- 由 JS 動態產生 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 備忘錄 ===== -->
+    <section class="section" id="notes">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">旅行備忘錄</h2>
+          <p class="section-subtitle">記錄你的想法、待辦事項與重要資訊</p>
+        </div>
+        <div class="backup-panel">
+          <div>
+            <h3>資料備份</h3>
+            <p>匯出備忘、待辦與行前檢查清單；換手機或清除瀏覽器資料前先備份。</p>
+          </div>
+          <div class="backup-actions">
+            <button type="button" class="btn btn-secondary" id="exportBackupBtn">匯出備份</button>
+            <label for="importBackupInput" class="btn btn-secondary">匯入備份</label>
+            <input type="file" id="importBackupInput" accept="application/json,.json" style="display: none;">
+          </div>
+        </div>
+        <div class="notes-layout">
+          <!-- 新增備忘錄 -->
+          <div class="note-editor">
+            <div class="note-editor-header">
+              <h3>新增備忘</h3>
+            </div>
+            <select class="note-category-select" id="noteCategorySelect">
+              <option value="general">📝 一般備忘</option>
+              <option value="todo">✅ 待辦事項</option>
+              <option value="booking">🎫 訂票訂位</option>
+              <option value="packing">🧳 打包清單</option>
+              <option value="emergency">🚨 緊急資訊</option>
+            </select>
+            <input type="text" class="note-input-title" id="noteTitleInput" placeholder="備忘標題...">
+            <textarea class="note-input" id="noteContentInput" rows="3" placeholder="筆記內容..." required></textarea>
+
+            <div class="file-upload-wrapper" style="margin-bottom: 12px;">
+              <label for="noteImageInput" class="upload-btn">
+                📷 附加圖片 <span style="font-size: 0.8rem; opacity: 0.8;">(或在文字框按 Cmd+V 貼上)</span>
+              </label>
+              <input type="file" id="noteImageInput" accept="image/*" style="display: none;">
+              <div id="noteImagePreviewContainer"
+                style="display: none; margin-top: 10px; position: relative; max-width: 200px;">
+                <img id="noteImagePreview" src="" alt="預覽"
+                  style="width: 100%; border-radius: 8px; border: 1px solid var(--c-border);">
+                <button type="button" id="removeImageBtn"
+                  style="position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; font-weight: bold;">✕</button>
+              </div>
+            </div>
+
+            <button id="noteSaveBtn" class="btn btn-primary" style="width: 100%;">新增筆記</button>
+          </div>
+
+          <!-- 備忘錄列表 -->
+          <div class="notes-list" id="notesList">
+            <div class="notes-empty" id="notesEmpty">
+              <div class="empty-icon">📋</div>
+              <p>還沒有備忘錄</p>
+              <p class="empty-sub">開始記錄你的旅遊重點吧！</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 資料整合紀錄 ===== -->
+    <section class="section section-dark" id="data-registry">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">資料整合紀錄</h2>
+          <p class="section-subtitle">系統自動追蹤並整合的外部資料清單</p>
+        </div>
+        <div class="registry-container"
+          style="background: var(--c-surface); border: 1px solid var(--c-border); border-radius: var(--radius-lg); padding: 24px; overflow-x: auto;">
+          <table style="width: 100%; text-align: left; border-collapse: collapse;">
+            <thead>
+              <tr style="border-bottom: 1px solid var(--c-border);">
+                <th style="padding: 12px; color: var(--c-accent);">資料來源檔案</th>
+                <th style="padding: 12px; color: var(--c-accent);">加入 DATA 目錄日期</th>
+                <th style="padding: 12px; color: var(--c-accent);">整合至網站日期</th>
+                <th style="padding: 12px; color: var(--c-accent);">解析內容摘要</th>
+              </tr>
+            </thead>
+            <tbody id="registryTableBody">
+              <!-- 由 JS 動態產生 -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== 頁尾 ===== -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-text">🇯🇵 日本旅遊手冊 2026 · 旅程: 5/5 — 5/11</p>
+      <p class="footer-sub">Have a great trip！旅途愉快 🌸</p>
+    </div>
+  </footer>
+
+  <!-- ===== 日程詳情浮層 ===== -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div class="modal-content" id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- ===== 回到頂部按鈕 ===== -->
+  <button class="back-to-top" id="backToTop" aria-label="回到頂部">↑</button>
+
+  <!-- ===== 手機底部快速列 ===== -->
+  <nav class="mobile-quick-nav" aria-label="手機快速導覽">
+    <a href="#timeline"><span>📅</span><small>行程</small></a>
+    <a href="#weather"><span>🌦️</span><small>天氣</small></a>
+    <a href="#todo-master"><span>✅</span><small>待辦</small></a>
+    <a href="#bookings"><span>🎫</span><small>訂位</small></a>
+    <a href="#notes"><span>📝</span><small>備忘</small></a>
+  </nav>
+
+  <!-- ===== Undo Toast 通知 ===== -->
+  <div id="undoToastContainer"></div>
+
+  <script src="js/app.js"></script>
+</body>
+
+</html>
