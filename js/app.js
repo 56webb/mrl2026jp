@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // 強制捲動到最上方並清除 URL 錨點
+  window.scrollTo(0, 0);
+  if (window.location.hash) {
+    history.replaceState('', document.title, window.location.pathname + window.location.search);
+  }
+
   // ===== 狀態管理與防錯處理 =====
   let initialNotes = JSON.parse(localStorage.getItem('japanTripNotes'));
   if (!Array.isArray(initialNotes)) initialNotes = [];
