@@ -340,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ===== 初始化功能 =====
   initNavbar();
   initCountdown();
-  renderDashboard();
+
   initWeatherForecast();
   renderCalendar();
   renderChecklist();
