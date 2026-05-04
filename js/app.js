@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: '⛩️ 淺間神社', text: '供奉淺間大神（火之神、山之神）。建築風格典雅，周圍環繞美麗的自然景觀。' }
       ],
       shopping: '大宮站超好逛！Aeon Style、成城石井、Maruetsu (深夜)。步行可達 <b>BIC CAMERA</b>、ecute 大宮、SOGO 地下街。',
-      detail: '今天從山區回到都市，大宮站附近採買非常方便，把握大型超市機會！'
+      detail: '今天從山區回到都市，大宮站附近採買非常方便，把握大型超市機會！<br>🏷️ <b>電器行折價券：</b><a href="https://yunique.cc/coupon/" target="_blank" rel="noopener noreferrer" style="color: var(--c-primary-light); text-decoration: underline;">點此開啟 Yunique 優惠券</a>'
     },
     {
       date: '5/10', day: 'DAY 6', weekday: '六', location: '川越/東京', type: 'tokyo',
