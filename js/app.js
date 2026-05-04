@@ -33,13 +33,113 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ===== 行程資料 =====
   const itineraryData = [
-    { date: '5/5', location: '東京/成田', type: 'tokyo', desc: '出發前往東京，成田山新勝寺', detail: '班機：CI 102 (07:55 KHH T1 - 12:35 NRT T2)。抵達後前往成田山新勝寺與表參道。<br>🏨 住宿：成田國際花園飯店 (0476-23-5522)<br><br>🛍️ <b>附近採買：</b><br>• <b>超商</b>：飯店一樓大廳內就有 <b>7-11</b>，走出飯店 1 分鐘有 Mini-Stop，非常方便。<br>• <b>超市/伴手禮</b>：步行範圍內無大型超市，需搭乘飯店免費接駁車至 <b>Aeon Mall 成田</b> (內有 Aeon Style 超市及免稅專櫃)。' },
-    { date: '5/6', location: '長野', type: 'nagano', desc: '足利紫藤花卉公園、白馬山麓', detail: 'CNN 嚴選全球十大最夢幻景點《足利紫藤花卉公園》藤花物語 / 紫藤花瀑布 / 紫藤花隧道。途經白馬山麓地區。<br>🏨 住宿：栂池太陽廣場溫泉飯店 (0261-83-2423)<br><br>🛍️ <b>附近採買：</b><br>• <b>超商</b>：飯店出門步行約 50 公尺即有當地便利商店。<br>• <b>伴手禮</b>：步行範圍內為溫泉/滑雪街，可於附近土產店買到信州蘋果點心、七味粉等當地名產。*(註：大型超市 DELiCiA 在白馬市區，走路無法抵達)*' },
-    { date: '5/7', location: '黑部立山', type: 'tateyama', desc: '立山黑部阿爾卑斯之路、兼六園', detail: '扇澤【關電巴士】→黑部水壩【徒步】→黑部湖【黑部地下纜車】→黑部平【空中纜車】→大觀峰【隧道巴士】→室堂‧雪之大谷（開山～６月下旬）【高原巴士】→美女平【電纜車或代行巴士】→立山→日本三大名園/「兼六園」。<br>🏨 住宿：金澤站前露櫻溫泉飯店 (050-5576-8105)<br><br>🛍️ <b>附近採買：</b><br>• <b>超市</b>：就在金澤車站旁！車站內有 100ban Mart (2F)，或步行 2 分鐘至 Cross Gate 內的 KAJIMART。<br>• <b>伴手禮</b>：車站內「金澤百番街 Anto」應有盡有 (金鍔、和菓子、海鮮)。<br>• <b>電器</b>：車站旁可至金澤 Forus 逛街，大型家電量販店較少。' },
-    { date: '5/8', location: '白川鄉/上高地', type: 'shirakawa', desc: '合掌村、上高地', detail: '白川鄉合掌村（聯合國列入世界遺產、國家指定重要傳統建築物群保存區）。下午前往日本阿爾卑斯仙境/神之故鄉上高地（路經大正池、眺望穗高連峰、河童橋）。<br>🏨 住宿：緣之杜山中湖溫泉飯店 (0555-72-8084)<br><br>🛍️ <b>附近採買：</b><br>• 此區超商較遠，建議在前往飯店前先買好今晚的零食與飲料。' },
-    { date: '5/9', location: '富士山', type: 'fuji', desc: '富士西湖夢幻合掌村落、忍野八海', detail: '途徑富士河口湖～遠眺富士山美景。前往日本百水名選之處「忍野八海」、「淺間神社」。<br>🏨 住宿：DaiwaRoynetHotel大宮西口 (048-779-8475)<br><br>🛍️ <b>附近採買：</b><br>• <b>超市</b>：步行 500m 內超好逛！大宮站旁有 Aeon Style、成城石井、大榮超市與 Maruetsu (營業至深夜)。<br>• <b>電器</b>：飯店步行可達 <b>BIC CAMERA</b> (大宮西口 SOGO 店)。<br>• <b>伴手禮</b>：大宮站內商城 ecute 大宮、SOGO 地下街。' },
-    { date: '5/10', location: '川越/東京', type: 'tokyo', desc: '小江戶川越、台場鋼彈', detail: '日本小江戶川越 / 菓子屋橫町 / 時之鐘。參觀古色古香的冰川神社。接著前往 DiverCity Tokyo Plaza 觀賞巨大鋼彈戰士模型。<br>🏨 住宿：露櫻Grand東京浅草橋溫泉飯店 (050-5864-0363)<br><br>🛍️ <b>附近採買：</b><br>• <b>超市</b>：步行 100m 內就有肉之Hanamasa (24小時) 以及 My Basket 都會型超市。<br>• <b>電器</b>：淺草橋搭 JR 總武線 1 站 (約2分) 至<b>秋葉原</b>，直達 Yodobashi 等大型家電賣場。<br>• <b>伴手禮</b>：搭都營淺草線 1 站至<b>淺草</b>，逛仲見世商店街。' },
-    { date: '5/11', location: '賦歸', type: 'transit', desc: '前往成田機場搭機返台', detail: '班機：CI 103 (13:35 NRT T2 - 16:40 KHH T1)。帶著滿滿的回憶，回到溫暖的家！<br><br>🛍️ <b>最後採買 (成田 T2)：</b><br>• <b>免稅店</b>：成田 T2 必買 <b>NewYork Perfect Cheese</b>、<b>楓糖男孩</b>、<b>Press Butter Sand</b>！' }
+    {
+      date: '5/5', day: 'DAY 1', weekday: '一', location: '東京/成田', type: 'tokyo',
+      desc: '高雄出發 → 東京成田機場 → 成田山新勝寺 → 表參道',
+      route: '高雄小港 T1 ✈ 成田 T2 → 成田山新勝寺 → 表參道 → 飯店',
+      meals: { breakfast: '—', lunch: '機上美食', dinner: '新勝寺表參道自理' },
+      hotel: { name: '成田國際花園飯店', addr: '千葉県成田市吉倉241-1', tel: '0476-23-5522' },
+      spots: [
+        { name: '✈️ CI 102 航班', text: '高雄 07:55 出發 → 成田 12:35 抵達。集合時間 04:55，高雄小港機場 T1 中華航空團體櫃台。' },
+        { name: '⛩️ 成田山新勝寺', text: '成田機場附近最具代表性的寺院，開基於 940 年，是真言宗智山派的大本山。正殿、三重塔、仁王門等建築氣勢壯觀。' },
+        { name: '🏮 成田山表參道', text: '從 JR 成田站延伸至新勝寺約 800 公尺的參道。兩旁林立著鰻魚飯名店、和菓子鋪與伴手禮店，可以品嚐現烤仙貝。' }
+      ],
+      shopping: '飯店一樓有 <b>7-11</b>，步行 1 分有 Mini-Stop。大型超市需搭飯店免費接駁車至 <b>Aeon Mall 成田</b>。',
+      detail: '班機：CI 102 (07:55 KHH T1 → 12:35 NRT T2)。抵達後前往成田山新勝寺與表參道散策。'
+    },
+    {
+      date: '5/6', day: 'DAY 2', weekday: '二', location: '足利/白馬', type: 'nagano',
+      desc: 'CNN 十大夢幻景點・足利紫藤花卉公園 → 白馬山麓 → 長野溫泉',
+      route: '飯店 → 足利紫藤花卉公園 → 白馬山麓地區 → 長野溫泉',
+      meals: { breakfast: '飯店內享用', lunch: '足利大藤物語便當', dinner: '迎賓宴會自助餐或會席料理' },
+      hotel: { name: '栂池太陽廣場溫泉飯店 ♨️', addr: '長野県北安曇郡小谷村千国乙12840-146', tel: '0261-83-2423' },
+      spots: [
+        { name: '🌸 足利紫藤花卉公園', text: '園區佔地 8.2 萬平方公尺，約 300 棵紫藤。最受矚目的「大藤」共 3 株、樹齡超過 130 年，藤架範圍廣達 600 個榻榻米，垂掛的花穗宛如紫色瀑布！花期：4 月中旬～5 月中旬。被 CNN 嚴選為全球十大最夢幻景點。' },
+        { name: '🏔️ 白馬山麓地區', text: '有「日本小瑞士」美譽，曾是 1988 年長野冬季奧運會場。位於海拔 3000 公尺的北阿爾卑斯山麓，擁有 9 座大型滑雪場。' },
+        { name: '♨️ 長野溫泉', text: '長野縣素有「日本屋脊」之稱，位於本州中部。縣內既有險峻高山，又有開闊高原，自古受東西文化雙重影響。' }
+      ],
+      shopping: '飯店附近為溫泉/滑雪街，可買信州蘋果點心、七味粉等。大型超市 DELiCiA 在白馬市區，步行無法抵達。',
+      detail: '⚠️ 藤花賞花季：4 月中旬～5 月中下旬。依天候因素影響，花況無法完全保證。'
+    },
+    {
+      date: '5/7', day: 'DAY 3', weekday: '三', location: '黑部立山', type: 'tateyama',
+      desc: '立山黑部阿爾卑斯之路（6 種交通工具）→ 兼六園 → 金澤城公園',
+      route: '扇澤 → 黑部水壩 → 黑部湖 → 黑部平 → 大觀峰 → 室堂‧雪之大谷 → 美女平 → 立山 → 兼六園',
+      meals: { breakfast: '飯店內享用', lunch: '北陸海鮮精緻御膳', dinner: '日式風味餐' },
+      hotel: { name: '金澤站前露櫻溫泉飯店 ♨️', addr: '石川県金沢市昭和町22-5', tel: '050-5576-8105' },
+      spots: [
+        { name: '🚌 關電隧道電氣巴士', text: '扇澤→黑部大壩 6.1km/16分。電力與氣壓並用的環保巴士。' },
+        { name: '🏗️ 黑部水壩', text: '徒步穿越日本最大拱形水壩，壩頂展望台可俯瞰黑部湖全景。' },
+        { name: '🚡 黑部隧道電纜車', text: '黑部湖→黑部平 0.8km/5分。日本唯一在隧道中行走的電纜車，高低差 377m、坡度約 30 度。' },
+        { name: '🚠 立山空中纜車', text: '黑部平→大觀峰 1.7km/7分。日本第一長，中間無支柱，四面全景「移動的展望台」。' },
+        { name: '🚎 立山隧道電軌車', text: '大觀峰→室堂 3.7km/10分。日本最高隧道，標高 2450m，貫穿立山主峰雄山。' },
+        { name: '❄️ 室堂・雪之大谷', text: '春季限定！雪車開出的道路兩旁雪壁高達近 20 公尺，極為壯觀。開放至 6 月下旬。' },
+        { name: '🚌 高原巴士', text: '室堂→美女平 23km/50分。Park Line 景觀道路，沿途林相豐富。' },
+        { name: '🚋 立山電纜車', text: '美女平→立山驛 1.3km/7分。高低差 500m。' },
+        { name: '🏯 兼六園', text: '日本三大名園之一，精緻的迴遊式庭園。' },
+        { name: '🏯 金澤城公園', text: '加賀百萬石的城堡，日式金澤城公園。' }
+      ],
+      shopping: '金澤車站內 100ban Mart、KAJIMART。伴手禮推薦「金澤百番街 Anto」(金鍔、和菓子、海鮮)。',
+      detail: '※ 立山實際開放時間需視天候及安全狀況，導遊將視情況調整。穿越 6 種交通工具橫跨北阿爾卑斯山脈！'
+    },
+    {
+      date: '5/8', day: 'DAY 4', weekday: '四', location: '白川鄉/上高地', type: 'shirakawa',
+      desc: '白川鄉合掌村（世界遺產）→ 上高地（大正池、河童橋）',
+      route: '飯店 → 白川鄉合掌村 → 上高地（大正池、穗高連峰、河童橋）→ 飯店',
+      meals: { breakfast: '飯店內早餐', lunch: '飛驒牛御膳 🥩', dinner: '飯店迎賓式會席料理' },
+      hotel: { name: '緣之杜山中湖溫泉飯店 ♨️', addr: '山梨県南都留郡山中湖村山中207-1', tel: '0555-72-8084' },
+      spots: [
+        { name: '🏘️ 白川鄉合掌村', text: '1995 年入選聯合國世界遺產。全村百餘幢茅草合掌屋，全部人手興建不用一根釘。屋頂呈 60 度正三角形，可承載厚重積雪。300 年歷史的獨特建築。' },
+        { name: '🏞️ 上高地・大正池', text: '被日本人視作「神的故鄉」，標高約 1500m。四周被燒岳、常念山脈、穗高連峰環抱，被指定為國家文化財產。' },
+        { name: '🌉 河童橋', text: '上高地最具代表性的地標，橫跨梓川的木造吊橋。可眺望穗高連峰與燒岳，是拍照絕佳地點。' }
+      ],
+      shopping: '⚠️ 此區超商較遠，建議在前往飯店前先買好零食與飲料！',
+      detail: '※ 上高地 7～10 月旺季會實施入山管制。預計開放日：2026/04/17 起。若因天候無法前往，將改為高山飛驒古街。'
+    },
+    {
+      date: '5/9', day: 'DAY 5', weekday: '五', location: '富士山/大宮', type: 'fuji',
+      desc: '西湖夢幻合掌村落 → 河口湖遠眺富士山 → 忍野八海 → 淺間神社',
+      route: '飯店 → 西湖里根場合掌村 → 富士河口湖 → 忍野八海 → 淺間神社 → 大宮',
+      meals: { breakfast: '飯店內用', lunch: '河口湖散策自理', dinner: '和牛壽喜燒套餐 🥩' },
+      hotel: { name: 'Daiwa Roynet Hotel 大宮西口', addr: '埼玉県さいたま市大宮区桜木町1丁目398-1', tel: '048-779-8475' },
+      spots: [
+        { name: '🏡 西湖里根場合掌村', text: '富士河口湖最有人氣的觀光名勝。茅草屋頂面向富士山而建，20 間民宅部分改為展覽館，還有手工藝體驗工作室。' },
+        { name: '🗻 河口湖', text: '富士五湖之一，天氣好時可看到「逆富士」（湖面倒映的富士山），美不勝收。' },
+        { name: '💧 忍野八海', text: '富士山雪水經地層數十年過濾而成的 8 座湧泉池。日本名水百選、天然記念物及新富岳百景之一。' },
+        { name: '⛩️ 淺間神社', text: '供奉淺間大神（火之神、山之神）。建築風格典雅，周圍環繞美麗的自然景觀。' }
+      ],
+      shopping: '大宮站超好逛！Aeon Style、成城石井、Maruetsu (深夜)。步行可達 <b>BIC CAMERA</b>、ecute 大宮、SOGO 地下街。',
+      detail: '今天從山區回到都市，大宮站附近採買非常方便，把握大型超市機會！'
+    },
+    {
+      date: '5/10', day: 'DAY 6', weekday: '六', location: '川越/東京', type: 'tokyo',
+      desc: '小江戶川越・菓子屋橫町・冰川神社 → 台場 DiverCity 鋼彈',
+      route: '飯店 → 川越（菓子屋橫町、時之鐘、冰川神社）→ 免稅店 → DiverCity Tokyo Plaza → 淺草橋',
+      meals: { breakfast: '飯店內早餐', lunch: '川越老街散策自理', dinner: '雞肉相撲火鍋味噌烤雞套餐' },
+      hotel: { name: '露櫻 Grand 東京淺草橋溫泉飯店 ♨️', addr: '東京都台東区浅草橋2-29-14', tel: '050-5864-0363' },
+      spots: [
+        { name: '🏯 小江戶川越', text: '完整保留江戶時期古老歷史。青磚瓦片倉庫群、百年老店林立。與江戶城、岩槻城並列關東三城，又名「小江戶」。' },
+        { name: '🍬 菓子屋橫町', text: '充滿懷舊風味的糖果街，各式傳統日式零食與點心琳瑯滿目。' },
+        { name: '🔔 時之鐘', text: '川越象徵性地標，約 400 年歷史的鐘樓，每天仍會定時敲鐘。' },
+        { name: '⛩️ 冰川神社', text: '創建於約 1500 年前。以「家庭圓滿」「締結姻緣」聞名。帶回境內白色小石子可締結好姻緣。本殿精緻雕刻。' },
+        { name: '🤖 台場 DiverCity', text: '東京臨海副都心大型商業設施，入口處巨大鋼彈戰士模型。集結品牌、美食廣場與娛樂設施。' }
+      ],
+      shopping: '步行 100m 有肉之 Hanamasa (24H)、My Basket。JR 1 站至<b>秋葉原</b> Yodobashi。淺草線 1 站至<b>淺草</b>仲見世商店街。',
+      detail: '行程豐富：白天古都川越、傍晚現代台場，晚上住淺草橋交通超方便！'
+    },
+    {
+      date: '5/11', day: 'DAY 7', weekday: '日', location: '賦歸', type: 'transit',
+      desc: '成田機場 → 高雄小港機場，帶著回憶回家！',
+      route: '飯店 → 成田機場 T2 → 高雄小港機場 T1',
+      meals: { breakfast: '飯店內美食', lunch: '機上餐', dinner: '—' },
+      hotel: { name: '溫暖的家 🏠', addr: '', tel: '' },
+      spots: [
+        { name: '✈️ CI 103 航班', text: '成田 13:35 出發 → 高雄 16:40 抵達。建議提早 3 小時到機場進行最後採買。' },
+        { name: '🛍️ 成田 T2 免稅店', text: '必買：<b>NewYork Perfect Cheese</b>、<b>楓糖男孩</b>、<b>Press Butter Sand</b>、<b>東京芭娜娜</b>限定款。' }
+      ],
+      shopping: '成田 T2 免稅區是最後採買機會！建議先排好優先購買清單。',
+      detail: '早餐後整理行裝，可自由參觀購物後前往機場。本次旅程終告結束，期待再相會！'
+    }
   ];
 
   const dashboardCards = [
@@ -351,7 +451,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initWeatherForecast();
   renderCalendar();
   renderChecklist();
-  renderMasterTodoList();
   renderRecommendations();
   renderTips();
   renderBookings();
@@ -680,48 +779,34 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderCalendar() {
     const container = document.getElementById('calendarContainer');
     container.innerHTML = '';
-
     const grid = document.createElement('div');
     grid.className = 'calendar-grid';
 
     itineraryData.forEach(itemData => {
       const cell = document.createElement('div');
       cell.className = `calendar-cell has-data cal-type-${itemData.type}`;
-      
-      const timeHtml = itemData.time ? `<span class="calendar-time">${itemData.time}</span>` : '';
-      
-      // 加上表情符號圖示
-      const icons = {
-        transit: '✈️',
-        tokyo: '🗼',
-        nagano: '🌸',
-        tateyama: '❄️',
-        shirakawa: '🏘️',
-        fuji: '🗻'
-      };
+      const icons = { transit: '✈️', tokyo: '🗼', nagano: '🌸', tateyama: '❄️', shirakawa: '🏘️', fuji: '🗻' };
       const icon = icons[itemData.type] || '📍';
-
-      // 計算這天有沒有未完成的待辦事項
       const uncompletedTodos = state.todos.filter(t => t.date === itemData.date && !t.completed);
       const badgeHtml = uncompletedTodos.length > 0 ? `<div class="calendar-todo-badge">${uncompletedTodos.length}</div>` : '';
+      const mealsPreview = itemData.meals
+        ? `<div class="cal-meals">🍽️ ${itemData.meals.lunch}${itemData.meals.dinner !== '—' ? ' / ' + itemData.meals.dinner : ''}</div>`
+        : '';
+      const spotCount = itemData.spots ? itemData.spots.length : 0;
+      const spotBadge = spotCount > 0 ? `<span class="cal-spot-count">📍 ${spotCount} 景點</span>` : '';
 
       cell.innerHTML = `
         ${badgeHtml}
-        <div class="calendar-date">
-          <span>${itemData.date}</span>
-          ${timeHtml}
-        </div>
-        <div class="calendar-item">
-          ${icon} ${itemData.location}
-        </div>
-        ${renderCalendarWeatherBadge(itemData.date)}
+        <div class="cal-day-badge">${itemData.day || ''}</div>
+        <div class="calendar-date"><span>${itemData.date} (${itemData.weekday || ''})</span></div>
+        <div class="calendar-item">${icon} ${itemData.location}</div>
+        <div class="cal-desc">${itemData.desc}</div>
+        ${mealsPreview}
+        <div class="cal-bottom-row">${spotBadge}${renderCalendarWeatherBadge(itemData.date)}</div>
       `;
-
-      // 點選事件
       cell.addEventListener('click', () => openModal(itemData));
       grid.appendChild(cell);
     });
-
     container.appendChild(grid);
   }
 
@@ -1282,37 +1367,55 @@ document.addEventListener('DOMContentLoaded', () => {
   function openModal(itemData) {
     const overlay = document.getElementById('modalOverlay');
     const content = document.getElementById('modalContent');
-    
-    const timeStr = itemData.time ? ` · ${itemData.time}` : '';
-    
+
+    // 景點區塊
+    let spotsHtml = '';
+    if (itemData.spots && itemData.spots.length > 0) {
+      spotsHtml = `<div class="modal-section"><h4 class="modal-section-title">📍 景點介紹</h4><div class="modal-spots-list">${itemData.spots.map(s => `<details class="modal-spot-item"><summary class="modal-spot-name">${s.name}</summary><p class="modal-spot-text">${s.text}</p></details>`).join('')}</div></div>`;
+    }
+    // 餐食區塊
+    let mealsHtml = '';
+    if (itemData.meals) {
+      mealsHtml = `<div class="modal-section"><h4 class="modal-section-title">🍽️ 今日餐食</h4><div class="modal-meals-grid"><div class="modal-meal-item"><span class="meal-label">早餐</span><span class="meal-value">${itemData.meals.breakfast}</span></div><div class="modal-meal-item"><span class="meal-label">午餐</span><span class="meal-value">${itemData.meals.lunch}</span></div><div class="modal-meal-item"><span class="meal-label">晚餐</span><span class="meal-value">${itemData.meals.dinner}</span></div></div></div>`;
+    }
+    // 住宿區塊
+    let hotelHtml = '';
+    if (itemData.hotel && itemData.hotel.name) {
+      hotelHtml = `<div class="modal-section"><h4 class="modal-section-title">🏨 住宿</h4><div class="modal-hotel-card"><div class="modal-hotel-name">${itemData.hotel.name}</div>${itemData.hotel.addr ? `<div class="modal-hotel-addr">📍 ${itemData.hotel.addr}</div>` : ''}${itemData.hotel.tel ? `<div class="modal-hotel-tel">📞 <a href="tel:${itemData.hotel.tel}">${itemData.hotel.tel}</a></div>` : ''}</div></div>`;
+    }
+    // 採買區塊
+    let shoppingHtml = '';
+    if (itemData.shopping) {
+      shoppingHtml = `<div class="modal-section"><h4 class="modal-section-title">🛍️ 附近採買</h4><div class="modal-shopping-text">${itemData.shopping}</div></div>`;
+    }
+
     content.innerHTML = `
       <div class="modal-header">
-        <div class="modal-date">📅 ${itemData.date} ${timeStr}</div>
+        <div class="modal-day-label">${itemData.day || ''}</div>
+        <div class="modal-date">📅 ${itemData.date} (${itemData.weekday || ''})</div>
         <h2 class="modal-title">${itemData.location}</h2>
+        <p class="modal-desc">${itemData.desc}</p>
       </div>
       <div class="modal-body">
-        <p style="font-size: 1.2rem; color: var(--c-text); margin-bottom: 20px;"><strong>📍 計畫：</strong>${itemData.desc}</p>
-        <p><strong>💡 詳細資訊：</strong><br>${itemData.detail}</p>
-        
+        ${itemData.route ? `<div class="modal-section"><h4 class="modal-section-title">🗺️ 今日路線</h4><div class="modal-route">${itemData.route}</div></div>` : ''}
+        ${spotsHtml}
+        ${mealsHtml}
+        ${hotelHtml}
+        ${shoppingHtml}
+        ${itemData.detail ? `<div class="modal-section"><h4 class="modal-section-title">💡 備註</h4><p class="modal-detail-text">${itemData.detail}</p></div>` : ''}
         <!-- 單日待辦事項區塊 -->
         <div class="modal-tool-panel">
-          <h4 style="margin-bottom: 15px; color: var(--c-accent); display: flex; align-items: center; gap: 8px;">
-            ☑️ 本日專屬待辦
-          </h4>
-          <div id="modalTodoList" class="todo-list-container">
-            <!-- 動態渲染待辦 -->
-          </div>
+          <h4 style="margin-bottom: 15px; color: var(--c-accent); display: flex; align-items: center; gap: 8px;">☑️ 本日專屬待辦</h4>
+          <div id="modalTodoList" class="todo-list-container"></div>
           <div class="todo-input-wrapper">
             <input type="text" id="modalTodoInput" class="todo-input" placeholder="新增待辦事項 (如：預約餐廳、買票)...">
             <button id="addModalTodoBtn" class="todo-add-btn">新增</button>
           </div>
         </div>
-
         <!-- 快速筆記區塊 -->
         <div class="modal-tool-panel">
           <h4 style="margin-bottom: 10px;">快速筆記區</h4>
           <textarea id="quickNote" class="quick-note-input" placeholder="點此輸入針對此行程的特定筆記，或直接按 Cmd+V 貼上圖片..."></textarea>
-          
           <div class="file-upload-wrapper" style="margin-bottom: 12px;">
             <label for="quickNoteImage" class="upload-btn" style="padding: 4px 10px; font-size: 0.85rem;">📷 附加圖片 (可直接貼上)</label>
             <input type="file" id="quickNoteImage" accept="image/*" style="display: none;">
@@ -1321,12 +1424,11 @@ document.addEventListener('DOMContentLoaded', () => {
               <button type="button" id="removeQuickNoteImage" style="position: absolute; top: -5px; right: -5px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; font-weight: bold;">✕</button>
             </div>
           </div>
-
           <button id="saveQuickNoteBtn" style="padding:6px 12px; background:var(--c-primary-light); color:white; border:none; border-radius:4px; font-size:0.9rem; cursor: pointer;">儲存筆記</button>
         </div>
       </div>
     `;
-    
+
     overlay.classList.add('active');
 
     // --- 待辦事項邏輯 ---
